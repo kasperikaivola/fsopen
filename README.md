@@ -5,5 +5,5 @@
 [0.5](https://github.com/kasperikaivola/fsopen/blob/master/fs_viikko0/0.5_spa.txt)
 [0.6](https://github.com/kasperikaivola/fsopen/blob/master/fs_viikko0/0.6_spa_muistiinpano.txt)
 
-## Viikko1 1
+## Viikko 1
 ### Tehtävät:
