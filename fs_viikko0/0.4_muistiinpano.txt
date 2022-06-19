@@ -1,21 +1,25 @@
-selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
-palvelin-->selain: HTTP STATUS 302 REDIRECT
-selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
-palvelin-->selain: HTML-koodi
-selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
-palvelin-->selain: main.css
-selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
-palvelin-->selain: main.js
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+note over server:
+Server  adds note and send a redirect message
+end note
+server-->browser: HTTP STATUS 302 REDIRECT
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server-->browser: HTML-code
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server-->browser: main.js
 
-note over selain:
-selain alkaa suorittaa js-koodia
-joka pyytää JSON-datan palvelimelta
+
+note over browser:
+browser starts executing js-code
+that requests JSON data from server
 end note
 
-selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
-palvelin-->selain: [{ content: "HTML on helppoa", date: "2019-01-01" }, ...]
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: [{ content: "HTML is easy", date: "2019-05-23" }, ...]
 
-note over selain:
-selain suorittaa tapahtumankäsittelijän
-joka renderöi muistiinpanot näytölle
+note over browser:
+browser executes the event handler
+that renders notes to display
 end note

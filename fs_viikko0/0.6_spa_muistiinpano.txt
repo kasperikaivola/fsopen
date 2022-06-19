@@ -1,2 +1,6 @@
-selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
-palvelin-->selain: HTTP STATUS 201 CREATED
+note over browser
+After creating a new note, 1: the list is updated in browser
+and 2: the new note is sent to server
+end note
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+server-->browser: HTTP STATUS 201 CREATED
