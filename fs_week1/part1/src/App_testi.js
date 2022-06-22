@@ -8,6 +8,7 @@ const Hello = (props) => {
 
 const App = () => {
   console.log('Hello from komponentti')
+  //test
   const now = new Date()
   const a = 1
   const b = 2
