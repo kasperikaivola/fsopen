@@ -7,3 +7,6 @@
 
 ## Week 1
 ### Exercises:
+[1.1-1.5 courseinformation] (https://github.com/kasperikaivola/fsopen/tree/master/fs_week1/courseinformation)
+[1.6-1.11 unicafe] (https://github.com/kasperikaivola/fsopen/tree/master/fs_week1/unicafe)
+[1.12-1.13 anecdotes]
