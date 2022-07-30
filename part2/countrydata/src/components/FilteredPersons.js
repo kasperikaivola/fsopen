@@ -9,11 +9,11 @@ const FilteredPersons = ({persons,filter}) => {
           <p>Capital {cand.capital}</p>
           <p>Area {cand.area}</p>
           <h4><b>Languages:</b></h4>
-          {console.log(Object.values(cand.languages))}
+          {/*console.log(Object.values(cand.languages))*/}
           <ul>
             {Object.values(cand.languages).map(lang => <li key={lang}>{lang}</li>)}
           </ul>
-          <img src={cand.flags.png} height="200" width ="200"/>
+          <img src={cand.flags.png} height="200" alt="Flag here"/>
         </div>
       )
     }

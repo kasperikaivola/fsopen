@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import FilteredPersons from './components/FilteredPersons'
 import Search from './components/Search'
 import AddNumber from './components/AddNumber'
+import phonebookService from './services/phonebook'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -24,24 +24,28 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault()
-    const person = {
+    const newPerson = {
       name: newName,
       number: newNumber
     }
     if(newName.length===0) window.alert(`Name is empty`)
-    else if(persons.map(p => p.name).includes(person.name)) {
+    else if(persons.map(p => p.name).includes(newPerson.name)) {
       window.alert(`${newName} is already added to phonebook`)
     }
     else {
-      setPersons(persons.concat(person))
-      setNewName('')
-      setNewNumber('')
+      phonebookService
+        .create(newPerson)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
+          setNewName('')
+          setNewNumber('')
+        })
     }
   }
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
+    phonebookService
+      .getAll()
       .then(response => setPersons(response.data))
   }, [])
 

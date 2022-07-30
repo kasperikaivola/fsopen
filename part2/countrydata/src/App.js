@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import FilteredPersons from './components/FilteredPersons'
 import Search from './components/Search'
-import AddNumber from './components/AddNumber'
 
 const App = () => {
   const [countries, setCountries] = useState([])
