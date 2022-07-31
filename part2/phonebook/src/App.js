@@ -22,6 +22,16 @@ const App = () => {
     setSearchTerm(event.target.value)
   }
 
+  const deleteNumber = (id, name) => {
+    if(window.confirm(`Delete contact ${name}?`)) {
+      phonebookService
+        .deletePerson(id)
+        .then(response => {
+          setPersons(persons.filter(p => p.id!=id))
+      })
+    }
+  }
+
   const addPerson = (event) => {
     event.preventDefault()
     const newPerson = {
@@ -61,7 +71,7 @@ const App = () => {
         newNumber={newNumber} 
         handleNumberChange={handleNumberChange}/>
       <h3>Numbers</h3>
-      <FilteredPersons persons={persons} filter={searchTerm}/>
+      <FilteredPersons persons={persons} filter={searchTerm} deleteNumber={deleteNumber}/>
     </div>
   )
 }

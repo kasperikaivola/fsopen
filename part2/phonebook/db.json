@@ -21,24 +21,9 @@
       "id": 4
     },
     {
-      "name": "testi",
-      "number": "1234",
-      "id": 5
-    },
-    {
       "name": "cool",
       "number": "1234",
-      "id": 6
-    },
-    {
-      "name": "coolcool",
-      "number": "1234",
-      "id": 7
-    },
-    {
-      "name": "testi2",
-      "number": "1234",
-      "id": 8
+      "id": 5
     }
   ]
 }

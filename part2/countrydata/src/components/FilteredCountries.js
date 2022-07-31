@@ -1,4 +1,4 @@
-const FilteredPersons = ({persons,filter}) => {
+const FilteredCountries = ({persons,filter}) => {
     const filtered = persons.filter(p => p.name.common.toLowerCase().includes(filter.toLowerCase()))
     if(filtered.length<=10 && filtered.length>1) return filtered.map(p => <p key={p.name.common}>{p.name.common} {p.number}</p>)
     else if(filtered.length===1) {
@@ -21,4 +21,4 @@ const FilteredPersons = ({persons,filter}) => {
     else return (<p>Too many matches, specify another filter</p>)
   }
   
-  export default FilteredPersons
+  export default FilteredCountries
