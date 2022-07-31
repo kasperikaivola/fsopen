@@ -27,7 +27,7 @@ const App = () => {
       phonebookService
         .deletePerson(id)
         .then(response => {
-          setPersons(persons.filter(p => p.id!=id))
+          setPersons(persons.filter(p => p.id!==id))
       })
     }
   }
