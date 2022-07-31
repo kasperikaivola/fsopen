@@ -40,7 +40,17 @@ const App = () => {
     }
     if(newName.length===0) window.alert(`Name is empty`)
     else if(persons.map(p => p.name).includes(newPerson.name)) {
-      window.alert(`${newName} is already added to phonebook`)
+      //window.alert(`${newName} is already added to phonebook`)
+      if(window.confirm(
+        `Contact ${newPerson.name} already exists in the phonebook, would you like to replace the number with a new one?`)
+        ) {
+          const toBeUpdated = persons.filter(p => p.name==newPerson.name)
+          phonebookService
+            .update(toBeUpdated[0].id, newPerson)
+            .then(response => {
+              setPersons(persons.map(p => (p.name===newPerson.name)? newPerson:p))
+            })
+      }
     }
     else {
       phonebookService
