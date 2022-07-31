@@ -12,5 +12,5 @@
 [1.12-1.14 anecdotes](https://github.com/kasperikaivola/fsopen/tree/master/part1/anecdotes)
 
 ## Part 2
-[2.1-2.5 courseinformation] (https://github.com/kasperikaivola/fsopen/tree/master/part2/courseinformation)
-[2.6-2.10,2.11-2.17 phonebook] (https://github.com/kasperikaivola/fsopen/tree/master/part2/phonebook)
+[2.1-2.5 courseinformation](https://github.com/kasperikaivola/fsopen/tree/master/part2/courseinformation)
+[2.6-2.10,2.11-2.17 phonebook](https://github.com/kasperikaivola/fsopen/tree/master/part2/phonebook)
