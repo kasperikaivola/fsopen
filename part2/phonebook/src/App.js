@@ -3,12 +3,14 @@ import FilteredPersons from './components/FilteredPersons'
 import Search from './components/Search'
 import AddNumber from './components/AddNumber'
 import phonebookService from './services/phonebook'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
+  const [message, setMessage] = useState({messageType: '', messageText: null})
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -28,12 +30,23 @@ const App = () => {
         .deletePerson(id)
         .then(response => {
           setPersons(persons.filter(p => p.id!==id))
+          setMessage({...message, messageType: 'success', messageText: `Deleted ${name}`})
+          setTimeout(() => {
+            setMessage({...message, messageType: 'error', messageText: null})
+          }, 5000)
+      })
+      .catch(error => {
+        setMessage({...message, messageType: 'error', messageText: `Contact with name ${name} has already been removed`})
+        setTimeout(() => {
+          setMessage({...message, messageType: 'error', messageText: null})
+        }, 5000)
       })
     }
   }
 
   const addPerson = (event) => {
     event.preventDefault()
+    //event.currentTarget.disabled=true
     const newPerson = {
       name: newName,
       number: newNumber
@@ -44,11 +57,19 @@ const App = () => {
       if(window.confirm(
         `Contact ${newPerson.name} already exists in the phonebook, would you like to replace the number with a new one?`)
         ) {
-          const toBeUpdated = persons.filter(p => p.name==newPerson.name)
+          const toBeUpdated = persons.find(p => p.name===newPerson.name)
+          //console.log(toBeUpdated.id)
+          newPerson.id=toBeUpdated.id
           phonebookService
-            .update(toBeUpdated[0].id, newPerson)
+            .update(toBeUpdated.id, newPerson)
             .then(response => {
-              setPersons(persons.map(p => (p.name===newPerson.name)? newPerson:p))
+              setPersons(persons.map(p => (p.name===newPerson.name)? response:p))
+              setMessage({...message, messageType: 'success', messageText: `Updated ${newPerson.name}'s number`})
+              setTimeout(() => {
+                setMessage({...message, messageType: 'error', messageText: null})
+              }, 5000)
+              setNewName('')
+              setNewNumber('')
             })
       }
     }
@@ -57,6 +78,10 @@ const App = () => {
         .create(newPerson)
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
+          setMessage({...message, messageType: 'success', messageText: `Added ${returnedPerson.name}`})
+          setTimeout(() => {
+            setMessage({...message, messageType: 'error', messageText: null})
+          }, 5000)
           setNewName('')
           setNewNumber('')
         })
@@ -72,6 +97,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification type={message.messageType} message={message.messageText}/>
       <Search searchTerm={searchTerm} handleSearchChange={handleSearchChange}/>
       <h3>Add a new number</h3>
       <AddNumber 
