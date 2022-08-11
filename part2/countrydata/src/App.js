@@ -21,7 +21,7 @@ const App = () => {
   }, [])
 
   const ExpandedCountry = (countryToShow) => { //doesnt work properly, will fix later
-    if(countryToShow?.name?.common===undefined) {
+    if(countryToShow) {
       console.log(countryToShow)
       console.log('1')
       return (<p>cool</p>)
