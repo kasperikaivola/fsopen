@@ -1,6 +1,7 @@
-const Country = ({cand, visible, setCountryToShow}) => {
+const Country = ({cand, visible, setCountryToShow, handleExpand}) => {
     if(cand===undefined) return null
-    else if(visible) {return (
+    else if(visible) {
+      return (
       <div id={cand.name.common}>
         <h1>{cand.name.common}</h1>
         <p>Capital {cand.capital}<br/>Area {cand.area}</p>
@@ -11,7 +12,10 @@ const Country = ({cand, visible, setCountryToShow}) => {
         <img src={cand.flags.png} height="200" alt="Flag here"/>
       </div>)
     }
-    else return (<p>{cand.name.common} {cand.number} {<button onClick={() => setCountryToShow(cand)}>Show</button>}</p>)
+    else return (<p>{cand.name.common} {cand.number} {<button onClick={() => {
+      handleExpand(cand)
+      setCountryToShow(cand.name.common)
+    }}>Show</button>}</p>)
 }
 
 export default Country
