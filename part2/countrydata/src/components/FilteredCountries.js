@@ -9,7 +9,7 @@ const FilteredCountries = ({countries,filter, setCountryToShow, handleExpand}) =
     }
     else if(filtered.length===1) {
       const cand = filtered[0]
-      return <Country cand={cand} visible={true}/>
+      return <Country cand={cand} visible={false} setCountryToShow={setCountryToShow} handleExpand={handleExpand}/>
     }
     else if(filtered.length===0) return (<p>No matches, specify another filter</p>)
     else return (<p>Too many matches, specify another filter</p>)

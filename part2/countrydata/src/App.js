@@ -8,7 +8,7 @@ const App = () => {
   const [countries, setCountries] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [countryToShow, setCountryToShow] = useState('')
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(false)
   const [capitalWeather, setCapitalWeather] = useState([])
 
   const handleSearchChange = (event) => {
@@ -32,15 +32,9 @@ const App = () => {
       .then(response => {
         setCountries(response.data)
       })
-    axios
-      .get(`https://api.openweathermap.org/data/2.5/weather?q=Helsinki&units=metric&appid=${process.env.REACT_APP_API_KEY}`)
-      .then(response => {
-        setCapitalWeather(response.data)
-        setLoading(false)
-      })
   }, [])
 
-  const ExpandedCountry = (countryToShow, capitalWeather) => {
+  const ExpandedCountry = (countryToShow) => {
     const cool1 = JSON.stringify(countryToShow)
     const cool2 = JSON.parse(cool1)
     const cool3 = cool2.countryToShow
@@ -49,9 +43,9 @@ const App = () => {
       return (
         <div>
           <Country cand={country[0]} visible={true}/>
-          <p>Temperature: {countryToShow.capitalWeather.main.temp}</p>
+          <p>Temperature: {countryToShow.capitalWeather.main.temp} Celsius</p>
           <img src={`https://openweathermap.org/img/wn/${countryToShow.capitalWeather.weather[0].icon}@2x.png`} alt='Weather icon'/>
-          <p>Wind: {countryToShow.capitalWeather.wind.speed}</p>
+          <p>Wind: {countryToShow.capitalWeather.wind.speed} m/s</p>
         </div>
       )
     }
