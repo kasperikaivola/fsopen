@@ -17,4 +17,4 @@
 [2.6-2.10,2.11,2.15-2.18,2-19.2.20 phonebook](https://github.com/kasperikaivola/fsopen/tree/master/part2/phonebook)
 
 ## Part 3
-[3.1-3.8 phonebook-backend separate repo](https://github.com/kasperikaivola/fsopen-part3)
+[3.1-3.8 phonebook-backend-separate-repo](https://github.com/kasperikaivola/fsopen-part3)
