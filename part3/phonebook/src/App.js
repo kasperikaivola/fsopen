@@ -108,6 +108,9 @@ const App = () => {
         handleNumberChange={handleNumberChange}/>
       <h3>Numbers</h3>
       <FilteredPersons persons={persons} filter={searchTerm} deleteNumber={deleteNumber}/>
+      <p><a href="https://github.com/kasperikaivola/fsopen-part3/blob/master/README.md"
+            target="_blank"
+            rel="noopener noreferrer">Source code (GitHub)</a></p>
     </div>
   )
 }
