@@ -71,6 +71,12 @@ const App = () => {
               setNewName('')
               setNewNumber('')
             })
+            .catch(error => {
+              setMessage({...message, messageType: 'error', messageText: `Error: ${error.response.data.error}`})
+              setTimeout(() => {
+                setMessage({...message, messageType: 'error', messageText: null})
+              }, 5000)
+            })
       }
     }
     else {
@@ -84,6 +90,12 @@ const App = () => {
           }, 5000)
           setNewName('')
           setNewNumber('')
+        })
+        .catch(error => {
+          setMessage({...message, messageType: 'error', messageText: `Error: ${error.response.data.error}`})
+          setTimeout(() => {
+            setMessage({...message, messageType: 'error', messageText: null})
+          }, 5000)
         })
     }
   }
