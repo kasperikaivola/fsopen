@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-	"dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "dev": "nodemon index.js",
+    "lint": "eslint .",
+    "test": "jest --verbose"
   },
   "author": "Kasperi Kaivola",
   "license": "ISC",
@@ -20,6 +20,11 @@
   },
   "devDependencies": {
     "eslint": "^8.26.0",
+    "jest": "^29.3.1",
+    "lodash": "^4.17.21",
     "nodemon": "^2.0.19"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
