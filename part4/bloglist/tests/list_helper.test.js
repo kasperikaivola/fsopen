@@ -42,3 +42,15 @@ describe('most blogs', () => {
     expect(listHelper.mostBlogs(blogs)).toStrictEqual({ author: 'Robert C. Martin', blogs: 3 })
   })
 })
+
+describe('most likes', () => {
+  test('empty list, so author with most likes is null', () => {
+    expect(listHelper.mostLikes(emptyList)).toBe(null)
+  })
+  test('1 blog, so author with most likes (88) must be that blogs author', () => {
+    expect(listHelper.mostLikes(blog)).toStrictEqual({ author: 'coolauthor3', likes: 88 })
+  })
+  test('6 blogs, author with most likes (17) should be Edsger W. Dijkstra', () => {
+    expect(listHelper.mostLikes(blogs)).toStrictEqual({ author: 'Edsger W. Dijkstra', likes: 17 })
+  })
+})

@@ -44,6 +44,28 @@ const mostBlogs = (blogs) => {
 
 const mostLikes = (blogs) => {
   if(blogs.length===0) return null //no blogs->no writer with most likes
+  const topAuthorAndLikes = lodash(blogs).groupBy((blog) => {
+    return blog.author
+  }) //group blogs by author->Array of objects (authors, name as key) with articles inside them
+    .map((authorObj, key) => ({
+      author: key, //the key of the object is the author name
+      likes: lodash.sumBy(authorObj, (article) => {
+        //sum likes from all articles of a single author
+        return article.likes
+      }),
+    })) //now we have an array of authors with their total likes
+    .reduce((auth1, auth2) => { //reduce the array to find who has the most total likes
+      return auth1.likes >= auth2.likes ? auth1 : auth2
+    })
+  /*const grouped2 = Object.keys(grouped).reduce((acc, key, index) => {
+    acc[key] = Object.values(grouped)[index]
+    return acc
+  },{})
+  const grouped3=Object.entries(grouped2).map((objs, key) => ({
+    author: key,
+    likes: lodash.sumBy(objs, 'likes'),
+  }))*/
+  return topAuthorAndLikes
 }
 
 module.exports = {
