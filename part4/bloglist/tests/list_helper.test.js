@@ -1,13 +1,13 @@
 const listHelper = require('../utils/list_helper')
 const { emptyList,blog,blogs } = require('./testBlogs')
 
-test('dummy returns one', () => {
+test('4.3: dummy returns one', () => {
   const blogs = []
   const result = listHelper.dummy(blogs)
   expect(result).toBe(1)
 })
 
-describe('total amount of likes', () => {
+describe('4.4: total amount of likes', () => {
   test('empty list, so 0 likes', () => {
     expect(listHelper.totalLikes(emptyList)).toBe(0)
   })
@@ -19,7 +19,7 @@ describe('total amount of likes', () => {
   })
 })
 
-describe('favorite blog', () => {
+describe('4.5: favorite blog', () => {
   test('empty list, so favorite blog is null', () => {
     expect(listHelper.favoriteBlog(emptyList)).toBe(null)
   })
@@ -31,7 +31,7 @@ describe('favorite blog', () => {
   })
 })
 
-describe('most blogs', () => {
+describe('4.6: most blogs', () => {
   test('empty list, so author with most blogs is null', () => {
     expect(listHelper.mostBlogs(emptyList)).toBe(null)
   })
@@ -43,11 +43,11 @@ describe('most blogs', () => {
   })
 })
 
-describe('most likes', () => {
+describe('4.7: most likes', () => {
   test('empty list, so author with most likes is null', () => {
     expect(listHelper.mostLikes(emptyList)).toBe(null)
   })
-  test('1 blog, so author with most likes (88) must be that blogs author', () => {
+  test('1 blog, so author with most likes (88) must be that blog`s author', () => {
     expect(listHelper.mostLikes(blog)).toStrictEqual({ author: 'coolauthor3', likes: 88 })
   })
   test('6 blogs, author with most likes (17) should be Edsger W. Dijkstra', () => {
