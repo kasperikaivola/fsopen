@@ -9,8 +9,8 @@ blogpostRouter.get('/', async (request, response) => {
   response.json(blogs)
 })
 
-blogpostRouter.get('/:id', (request, response, next) => {
-  Blogpost.findById(request.params.id)
+blogpostRouter.get('/:id', async (request, response, next) => {
+  /*Blogpost.findById(request.params.id)
     .then(blogpost => {
       if (blogpost) {
         response.json(blogpost)
@@ -18,10 +18,21 @@ blogpostRouter.get('/:id', (request, response, next) => {
         response.status(404).end()
       }
     })
-    .catch(error => next(error))
+    .catch(error => next(error))*/
+    try {
+      const blog = await Blogpost.findById(request.params.id)
+      if (blog) {
+        response.json(blog)
+      } else {
+        response.status(404).end()
+      }
+    }
+    catch(exception) {
+      next(exception)
+    }
 })
 
-blogpostRouter.post('/', (request, response, next) => {
+blogpostRouter.post('/', async (request, response, next) => {
   const body = request.body
   const blogpost = new Blogpost({
     title: body.title,
@@ -29,25 +40,42 @@ blogpostRouter.post('/', (request, response, next) => {
     url: body.url,
     likes: body.likes | 0
   })
-
-  blogpost.save()
+  if(typeof blogpost.title === 'undefined' || typeof blogpost.url === 'undefined') {
+    response.status(400).end()
+  }
+  /*blogpost.save()
     .then(savedNote => {
       response.status(201).json(savedNote)
     })
-    .catch(error => next(error))
+    .catch(error => next(error))*/
+  else {
+    try {
+      const savedBlog = blogpost.save()
+      response.status(201).json(savedBlog)
+    }
+    catch(exception) {
+      next(exception)
+    }
+  }
 })
 
-blogpostRouter.delete('/:id', (request, response, next) => {
-  Blogpost.findByIdAndRemove(request.params.id)
+blogpostRouter.delete('/:id', async (request, response, next) => {
+  /*Blogpost.findByIdAndRemove(request.params.id)
     .then(() => {
       response.status(204).end()
     })
-    .catch(error => next(error))
+    .catch(error => next(error))*/
+    try {
+      const deleted = await Blogpost.findByIdAndRemove(request.params.id)
+      response.status(204).end()
+    }
+    catch(exception) {
+      next(exception)
+    }
 })
 
-blogpostRouter.put('/:id', (request, response, next) => {
+blogpostRouter.put('/:id', async (request, response, next) => {
   const body = request.body
-
   const blogpost = {
     title: body.title,
     author: body.author,
@@ -55,11 +83,18 @@ blogpostRouter.put('/:id', (request, response, next) => {
     likes: body.likes
   }
 
-  Blogpost.findByIdAndUpdate(request.params.id, blogpost)
+  /*Blogpost.findByIdAndUpdate(request.params.id, blogpost)
     .then(updatedBlogpost => {
       response.json(updatedBlogpost)
     })
-    .catch(error => next(error))
+    .catch(error => next(error))*/
+  try {
+    updatedBlog = await Blogpost.findByIdAndUpdate(request.params.id, blogpost)
+    response.status(204).json(updatedBlog)
+  }
+  catch(exception) {
+    next(exception)
+  }
 })
 
 module.exports = blogpostRouter
