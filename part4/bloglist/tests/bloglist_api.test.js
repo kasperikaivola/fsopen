@@ -80,11 +80,11 @@ describe('4.11: HTTP POST missing likes test', () => {
     const urls = blogsAtEnd.map(blog => blog.url)
     expect(urls).toContain(newBlog.url)
 
-    const blog = blogsAtEnd.filter(blog => 
-      blog.title==='Missing likes test' && 
-      blog.author==='Missing likes test author' && 
+    const blog = blogsAtEnd.filter(blog =>
+      blog.title==='Missing likes test' &&
+      blog.author==='Missing likes test author' &&
       blog.url==='likestesturl')[0]
-    console.log(blog)
+    //console.log(blog)
     expect(blog.likes).toBe(0)
   })
 })
@@ -156,18 +156,18 @@ describe('4.13: HTTP DELETE test', () => {
 
     const blogsAfterPOST = await helper.blogsInDb()
     expect(blogsAfterPOST).toHaveLength(helper.initialBlogs.length+1)
-    
-    const blog = blogsAfterPOST.filter(blog => 
-      blog.title==='DELETEtest' && 
-      blog.author==='DELETEtest author' && 
+
+    const blog = blogsAfterPOST.filter(blog =>
+      blog.title==='DELETEtest' &&
+      blog.author==='DELETEtest author' &&
       blog.url==='DELETEtesturl')[0]
 
-      await api
+    await api
       .delete('/api/blogs/'+blog.id)
       .expect(204)
-    
-      const blogsAfterDELETE = await helper.blogsInDb()
-      expect(blogsAfterDELETE).toHaveLength(helper.initialBlogs.length)
+
+    const blogsAfterDELETE = await helper.blogsInDb()
+    expect(blogsAfterDELETE).toHaveLength(helper.initialBlogs.length)
   })
 })
 
@@ -179,15 +179,15 @@ describe('4.14: HTTP PUT test', () => {
     blog.likes +=1
 
     await api
-        .put('/api/blogs/'+blog.id)
-        .send(blog)
-        .expect(204)
-    
+      .put('/api/blogs/'+blog.id)
+      .send(blog)
+      .expect(204)
+
     const blogsAfterUpdate = await helper.blogsInDb()
     expect(blogsAfterUpdate).toHaveLength(helper.initialBlogs.length)
-    const blog2 = blogsAfterUpdate.filter(cand => 
-      cand.title===cand.title && 
-      cand.author===cand.author && 
+    const blog2 = blogsAfterUpdate.filter(cand =>
+      cand.title===cand.title &&
+      cand.author===cand.author &&
       cand.url===cand.url && cand.likes===blog.likes)
     expect(blog2).toHaveLength(1)
   })
