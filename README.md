@@ -18,3 +18,6 @@
 
 ## Part 3
 [3.1-3.8 phonebook-backend (separate-repo)](https://github.com/kasperikaivola/fsopen-part3)
+
+## Part 4
+[4.1-4.19 bloglist](https://github.com/kasperikaivola/fsopen/tree/master/part4/bloglist)

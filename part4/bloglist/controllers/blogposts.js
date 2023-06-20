@@ -1,11 +1,13 @@
 const blogpostRouter = require('express').Router()
 const Blogpost = require('../models/blogpost')
+const User = require('../models/user')
+const jwt = require('jsonwebtoken')
 
 blogpostRouter.get('/', async (request, response) => {
   /*Blogpost.find({}).then(blogposts => {
     response.json(blogposts)
   })*/
-  const blogs = await Blogpost.find({})
+  const blogs = await Blogpost.find({}).populate('user')
   response.json(blogs)
 })
 
@@ -32,13 +34,29 @@ blogpostRouter.get('/:id', async (request, response, next) => {
   }
 })
 
+const getTokenFrom = request => {
+  const authorization = request.get('authorization')
+  console.log(authorization)
+  if (authorization && authorization.startsWith('bearer ')) {
+    return authorization.replace('bearer ', '')
+  }
+  return null
+}
+
 blogpostRouter.post('/', async (request, response, next) => {
   const body = request.body
+  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+  const user = await User.findById(decodedToken.id)
+  //const user = await User.findById(body.userId)
   const blogpost = new Blogpost({
     title: body.title,
     author: body.author,
     url: body.url,
-    likes: body.likes | 0
+    likes: body.likes | 0,
+    user: user
   })
   if(typeof blogpost.title === 'undefined' || typeof blogpost.url === 'undefined') {
     response.status(400).end()
@@ -49,8 +67,11 @@ blogpostRouter.post('/', async (request, response, next) => {
     })
     .catch(error => next(error))*/
   else {
+
     try {
-      const savedBlog = blogpost.save()
+      const savedBlog = await blogpost.save()
+      user.blogs = user.blogs.concat(savedBlog._id)
+      await user.save()
       response.status(201).json(savedBlog)
     }
     catch(exception) {
