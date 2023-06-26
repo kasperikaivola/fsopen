@@ -8,6 +8,7 @@ const User = require('../models/user')
 beforeEach(async () => {
   await User.deleteMany()
   await User.insertMany(helper.initialUsers)
+  console.log(User.find({}))
 })
 
 describe('4.16: User Add test', () => {
