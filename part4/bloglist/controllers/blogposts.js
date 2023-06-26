@@ -95,11 +95,15 @@ blogpostRouter.delete('/:id', middleware.userExtractor, async (request, response
   //const user = await User.findById(decodedToken.id)
   const blog = await Blogpost.findById(request.params.id)
   try {
-    if (blog.user._id.toString() !== request.user.id) {
+    if(blog===null) {
+      return response.status(204).end()
+    }
+    if(blog.user._id.toString() !== request.user.id) {
       return response.status(403).json({ error: 'unauthorized delete' })
     }
   }
   catch(exception) {
+    console.log(exception)
     return response.status(403).json({ error: 'unauthorized delete' })
   }
   try {

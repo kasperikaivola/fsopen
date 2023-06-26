@@ -1,7 +1,6 @@
 const Blog = require('../models/blogpost')
 const User = require('../models/user')
-const jwt = require('jsonwebtoken')
-const saltRounds = 10
+//const jwt = require('jsonwebtoken')
 const initialBlogs = [
   {
     'title': 'cooltitle',
@@ -48,7 +47,7 @@ const initialUsers = [
   }
 ]
 
-const signToken = (user) =>
+/*const signToken = (user) =>
   jwt.sign(
     {
       username: user.username,
@@ -61,7 +60,7 @@ const signToken = (user) =>
 
 const authHeader = (user) => ({
   Authorization: `bearer ${signToken(user)}`,
-})
+})*/
 
 const nonExistingId = async () => {
   const blog = new Blog({ title: 'willremovethissoon', author: 'author', url: 'url', likes:0 })
@@ -81,5 +80,5 @@ const usersInDb = async () => {
 }
 
 module.exports = {
-  initialBlogs, initialUsers, nonExistingId, blogsInDb, usersInDb, authHeader
+  initialBlogs, initialUsers, nonExistingId, blogsInDb, usersInDb//, authHeader
 }
