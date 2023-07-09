@@ -23,7 +23,7 @@ const update = (id, newObject) => {
 }
 
 const setToken = newToken => {
-  token = `Bearer ${newToken}`
+  token = `bearer ${newToken}`
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

@@ -4,13 +4,15 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
+import Notification from './components/Notification'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [errorMessage, setErrorMessage] = useState(null)
+  //const [errorMessage, setErrorMessage] = useState(null)
   const [user, setUser] = useState(null)
+  const [message, setMessage] = useState({messageType: '', messageText: null})
 
  useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -43,10 +45,14 @@ const App = () => {
       //console.log(user)
       setUsername('')
       setPassword('')
-    } catch (exception) {
-      setErrorMessage('Wrong credentials')
+      setMessage({...message, messageType: 'success', messageText: `Login successful`})
       setTimeout(() => {
-        setErrorMessage(null)
+        setMessage({...message, messageType: 'error', messageText: null})
+      }, 5000)
+    } catch (exception) {
+      setMessage({...message, messageType: 'error', messageText: `Wrong credentials`})
+      setTimeout(() => {
+        setMessage({...message, messageType: 'error', messageText: null})
       }, 5000)
     }
   }
@@ -58,7 +64,24 @@ const App = () => {
   }
 
   const addBlog = (blog) => {
+    blogService
+      .create(blog)
+      .then(returnedBlog => {
+        setBlogs(blogs.concat(returnedBlog))
 
+        setMessage({...message, messageType: 'success', messageText: `Added blog ${blog.title}`})
+        setTimeout(() => {
+          setMessage({...message, messageType: 'error', messageText: null})
+        }, 5000)
+      })
+      // eslint-disable-next-line no-unused-vars
+      .catch(error => {
+        setMessage({...message, messageType: 'error', messageText: `Failed to add blog, check fields`})
+        setTimeout(() => {
+          setMessage({...message, messageType: 'error', messageText: null})
+        }, 5000)
+        setBlogs(blogs.filter(b => b.id !== blog.id))
+      })
   }
   
   /*const blogForm = () => (
@@ -74,6 +97,7 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
+      <Notification type={message.messageType} message={message.messageText}/>
       {user===null && <LoginForm
             handleLogin={handleLogin}
             password={password}
@@ -89,8 +113,10 @@ const App = () => {
       {user!==null && <BlogForm createBlog={addBlog}/>}
       {blogs.map(blog => {
         //console.log(blog.user)
-        if(user!==null && blog.user.username===user.username)
-        return <Blog key={blog.id} blog={blog} />
+        if(user!==null && blog.user.username===user.username) {
+          return <Blog key={blog.id} blog={blog} />
+        }
+        return null
       }
       )}
     </div>
