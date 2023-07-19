@@ -137,8 +137,9 @@ blogpostRouter.put('/:id', async (request, response, next) => {
     })
     .catch(error => next(error))*/
   try {
-    const updatedBlog = await Blogpost.findByIdAndUpdate(request.params.id, blogpost)
-    response.status(204).json(updatedBlog)
+    const updatedBlog = await Blogpost.findByIdAndUpdate(request.params.id, blogpost, { new: true })
+    //console.log(updatedBlog)
+    response.status(201).json(updatedBlog)
   }
   catch(exception) {
     next(exception)

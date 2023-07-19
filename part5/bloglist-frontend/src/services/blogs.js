@@ -17,8 +17,18 @@ const create = async newObject => {
   return response.data
 }
 
+const remove = id => {
+  // adds token to delete request. Is checked in backend.
+  const config = {
+    headers: { Authorization: token },
+  }
+
+  const request = axios.delete(`${baseUrl}/${id}`, config)
+  return request.then(response => response.data)
+}
+
 const update = (id, newObject) => {
-  const request = axios.put(`${ baseUrl }/${id}`, newObject)
+  const request = axios.put(`${baseUrl}/${id}`, newObject)
   return request.then(response => response.data)
 }
 
@@ -26,5 +36,6 @@ const setToken = newToken => {
   token = `bearer ${newToken}`
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, create, update, setToken }
+
+
+export default { getAll, create, remove, update, setToken }
